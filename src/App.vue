@@ -21,7 +21,7 @@ export default {
         showFeelsLike() {
             return 'Feels like: ' + Math.round(this.info.feels_like) + '°C'
         },
-        swhorMinTemp() {
+        showMinTemp() {
             return 'Min temperature: ' + Math.round(this.info.temp_min) + '°C'
         },
         showMaxTemp() {
@@ -72,7 +72,7 @@ export default {
             <p>{{ showTemp }}</p>
             <p>{{ showHumidity }}</p>
             <p>{{ showFeelsLike }}</p>
-            <p>{{ swhorMinTemp }}</p>
+            <p>{{ showMinTemp }}</p>
             <p>{{ showMaxTemp }}</p>
             <!-- прочитать за дериктивы v-show и v-if -->
             <!-- почитать за onclick и @click и :click -->
