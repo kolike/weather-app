@@ -25,6 +25,9 @@ export default {
         showMaxTemp() {
             return 'Max temperature: ' + this.info.temp_max
         },
+        showHumidity() {
+            return 'Humidity: ' + this.info.humidity
+        },
     },
     methods: {
         async getWeather() {
@@ -32,13 +35,14 @@ export default {
                 this.error = 'Invalid city name'
                 return false
             }
-            this.error = ''
 
             axios
                 .get(
                     `https://api.openweathermap.org/data/2.5/weather?q=${this.city}&units=metric&appid=fd0c066f40c0aa2abd192e5b2fbbd420`
                 )
                 .then((res) => (this.info = res.data.main))
+                .catch(() => (this.error = 'Incorrect city name'))
+            this.error = ''
         },
     },
 }
@@ -51,8 +55,9 @@ export default {
         <input type="text" v-model="city" placeholder="Enter the name of the city" />
         <button v-show="city != ''" @click="getWeather()">Find out the weather</button>
         <p className="error">{{ error }}</p>
-        <div v-if="info !== null">
+        <div v-if="info !== null && error == ''">
             <p>{{ showTemp }}</p>
+            <p>{{ showHumidity }}</p>
             <p>{{ showFeelsLike }}</p>
             <p>{{ swhorMinTemp }}</p>
             <p>{{ showMaxTemp }}</p>
@@ -77,7 +82,7 @@ export default {
     margin-top: 50px;
 }
 .wrapper p {
-    margin-top: 50px;
+    margin-top: 20px;
 }
 .wrapper input {
     margin-top: 30px;
