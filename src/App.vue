@@ -7,9 +7,8 @@ export default {
             city: '',
             error: '',
             info: null,
-            loader: 'Loading...',
-            firstLoading: true,
-            cityValue: '',
+            isLoading: false,
+            prevCity: '',
         }
     },
     computed: {
@@ -38,16 +37,23 @@ export default {
                 this.error = 'Invalid city name'
                 return false
             }
-            if (this.cityValue !== this.city) {
+            if (this.prevCity !== this.city) {
+                this.isLoading = true
                 axios
                     .get(
                         `https://api.openweathermap.org/data/2.5/weather?q=${this.city}&units=metric&appid=fd0c066f40c0aa2abd192e5b2fbbd420`
                     )
-                    .then((res) => (this.info = res.data.main))
-                    .catch(() => (this.error = 'Incorrect city name'))
-                this.cityValue = this.city
+                    .then((res) => {
+                        this.info = res.data.main
+                    })
+                    .catch(() => {
+                        this.error = 'Incorrect city name'
+                    })
+                    .finally(() => (this.isLoading = false))
+
+                this.prevCity = this.city
             }
-            this.firstLoading = false
+
             this.error = ''
         },
     },
@@ -59,15 +65,19 @@ export default {
     <div className="wrapper">
         <p>Find out the weather in {{ city === '' ? 'your' : cityName }} city</p>
         <input type="text" v-model="city" placeholder="Enter the name of the city" />
-        <button v-show="city != ''" @click="getWeather()">Find out the weather</button>
-        <p className="error">{{ error }}</p>
-        <div v-show="info == null && error == '' && firstLoading == false">{{ loader }}</div>
-        <div className="showInfo" v-if="info !== null && error == ''">
+        <button @click="getWeather()">Find out the weather</button>
+        <p v-show="error !== ''" className="error">{{ error }}</p>
+        <div v-show="error === '' && isLoading">Loading...</div>
+        <div className="showInfo" v-if="info !== null && error === '' && !isLoading">
             <p>{{ showTemp }}</p>
             <p>{{ showHumidity }}</p>
             <p>{{ showFeelsLike }}</p>
             <p>{{ swhorMinTemp }}</p>
             <p>{{ showMaxTemp }}</p>
+            <!-- прочитать за дериктивы v-show и v-if -->
+            <!-- почитать за onclick и @click и :click -->
+            <!-- доделать лоадинг-->
+            <!-- MVC -->
         </div>
     </div>
 </template>
@@ -77,7 +87,8 @@ export default {
     color: red;
 }
 .wrapper {
-    width: 90%;
+    width: 100%;
+    margin: 100px;
     font-family: 'Josefin Sans', sans-serif;
     font-optical-sizing: auto;
     font-weight: 300;
@@ -90,9 +101,9 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: linear-gradient(339deg, rgb(0, 69, 219) 0%, rgb(255, 101, 40) 100%);
 }
 h1 {
+    color: black;
     font-family: 'Playwrite IT Moderna', cursive;
     font-optical-sizing: auto;
     font-weight: 500;
@@ -113,10 +124,6 @@ h1 {
     outline: none;
 }
 input::placeholder {
-    font-family: 'Playwrite IT Moderna', cursive;
-    font-optical-sizing: auto;
-    font-weight: 500;
-    font-style: normal;
     width: 125%;
 }
 
@@ -139,7 +146,7 @@ input::placeholder {
     transform: scale(1.1) translateY(-5px);
 }
 .wrapper button:active {
-    background: #c0a03f;
+    background: #f3d36f;
 }
 
 .showInfo {
@@ -148,9 +155,9 @@ input::placeholder {
     align-items: start;
 }
 
-/* @media (min-width: 300px) and (max-width: 500px) {
+@media (max-width: 720px) {
     .wrapper {
-        width: 100%;
+        height: 320px;
     }
-} */
+}
 </style>
