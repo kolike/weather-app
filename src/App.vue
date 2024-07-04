@@ -63,27 +63,24 @@ export default {
 
 <template>
     <h1>Weather app</h1>
-    <div
-        class="info-block"
-        :style="{
-            backgroundImage: `url(/src/img/weather-img/${weather}.png)`,
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: '40px 75px',
-        }"
-    >
+    <div class="info-block" v-bind:style="{
+        backgroundImage: `url(/src/img/weather-img/${weather}.png)`,
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: '40px 75px',
+    }">
         <div class="welcome-string">Find out the weather in {{ city === '' ? 'your' : cityName }} city</div>
         <input type="text" v-model="city" placeholder="Enter the name of the city" />
         <button @click="getWeather()">Find out the weather</button>
         <p v-show="error !== ''" className="error">{{ error }}</p>
         <div v-show="error === '' && isLoading">Loading...</div>
         <div className="showInfo" v-if="info !== null && error === '' && !isLoading">
-            <p><img src="/src/img/icons/weather.png" /> {{ weather }}</p>
-            <p><img src="/src/img/icons/celsius.png" />{{ showTemp }}</p>
-            <p><img src="/src/img/icons/humidity.png" />{{ showHumidity }}</p>
-            <p><img src="/src/img/icons/celsius.png" />{{ showFeelsLike }}</p>
-            <p><img src="/src/img/icons/cold.png" />{{ showMinTemp }}</p>
-            <p><img src="/src/img/icons/hot.png" />{{ showMaxTemp }}</p>
+            <p>{{ weather }}</p>
+            <p>{{ showTemp }}</p>
+            <p>{{ showHumidity }}</p>
+            <p>{{ showFeelsLike }}</p>
+            <p>{{ showMinTemp }}</p>
+            <p>{{ showMaxTemp }}</p>
             <!-- MVC -->
         </div>
     </div>
@@ -126,6 +123,7 @@ h1 {
         width: 70%;
     }
 }
+
 @media (max-width: 720px) {
     .info-block {
         width: 80%;
@@ -142,11 +140,6 @@ h1 {
     margin-top: 0;
 }
 
-p img {
-    width: 30px;
-    height: 30px;
-}
-
 .info-block input {
     margin-top: 30px;
     background: transparent;
@@ -157,6 +150,7 @@ p img {
     padding: 5px 8px;
     outline: none;
 }
+
 input::placeholder {
     color: rgb(255, 255, 255);
     width: 125%;
@@ -181,6 +175,7 @@ input::placeholder {
 .info-block button:hover {
     transform: scale(1.1) translateY(-5px);
 }
+
 .info-block button:active {
     background: #f3d36f;
 }
