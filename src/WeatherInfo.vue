@@ -1,5 +1,12 @@
 <script setup>
 import { computed } from 'vue'
+import weatherClear from '/src/assets/img/weather-clear.png'
+import weatherClouds from '/src/assets/img/weather-clouds.png'
+import weatherDrizzle from '/src/assets/img/weather-drizzle.png'
+import weatherMist from '/src/assets/img/weather-mist.png'
+import weatherRain from '/src/assets/img/weather-rain.png'
+import weatherSnow from '/src/assets/img/weather-snow.png'
+import weatherThunderstorm from '/src/assets/img/weather-thunderstorm.png'
 
 const props = defineProps({
     city: String,
@@ -31,18 +38,32 @@ const showWind = computed(() => {
     return props.info.wind.speed + ' m/sec'
 })
 
-// const weatherImgSrc = computed(() => {
-//     return `/src/assets/img/weather-${props.weather.toLowerCase()}.png`
-// })
-
-const weatherImgSrc = new URL(`/src/assets/img/weather-${props.weather.toLowerCase()}.png`, import.meta.url).href
+const weatherImgSrc = computed(() => {
+    switch (props.weather.toLowerCase()) {
+        case 'clear':
+            return weatherClear
+        case 'clouds':
+            return weatherClouds
+        case 'drizzle':
+            return weatherDrizzle
+        case 'mist':
+        case 'haze':
+            return weatherMist
+        case 'rain':
+            return weatherRain
+        case 'snow':
+            return weatherSnow
+        case 'thunderstorm':
+            return weatherThunderstorm
+    }
+})
 
 </script>
 <template>
     <div className="content-info" v-if="info !== null && error === '' && !isLoading">
         <div class="temperature">
             <p class="temperature-now">{{ showTemp }}</p>
-            <img class="weather-img-src" :src="weatherImgSrc" />
+            <img v-show="weatherImgSrc" class="weather-img-src" :src="weatherImgSrc" />
             <div class="weather-info">
                 <p class="weather-text">{{ weather }}</p>
                 <p>{{ showFeelsLike }}</p>
