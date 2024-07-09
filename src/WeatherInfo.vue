@@ -31,7 +31,7 @@ const showWind = computed(() => {
 })
 
 const weatherImgSrc = computed(() => {
-    return `src/img/${props.weather.toLowerCase()}.png`
+    return `/src/img/${props.weather.toLowerCase()}.png`
 })
 </script>
 <template>
