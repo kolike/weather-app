@@ -32,9 +32,8 @@ const showWind = computed(() => {
 })
 
 const weatherImgSrc = computed(() => {
-    return props.weather
-        ? `../src/img/weather-${props.weather.toLowerCase()}.png`
-        : `..assets/src/img/weather-${props.weather.toLowerCase()}.png`
+    return `../src/assets/img/weather-${props.weather.toLowerCase()}.png`
+
 })
 </script>
 <template>
@@ -48,9 +47,9 @@ const weatherImgSrc = computed(() => {
             </div>
         </div>
         <div class="other-weather-info">
-            <p class="other"><img src="/src/img/weather-wind.png" /> {{ showWind }}</p>
-            <p class="other"><img src="/src/img/weather-humidity.png" /> {{ showHumidity }}</p>
-            <p class="other"><img src="/src/img/weather-pressure.png" /> {{ showPressure }}</p>
+            <p class="other"><img src="/src/assets/img/weather-wind.png" /> {{ showWind }}</p>
+            <p class="other"><img src="/src/assets/img/weather-humidity.png" /> {{ showHumidity }}</p>
+            <p class="other"><img src="/src/assets/img/weather-pressure.png" /> {{ showPressure }}</p>
         </div>
         <div class="max-temp">{{ showMaxTemp }}</div>
         <div class="min-temp">{{ showMinTemp }}</div>
@@ -62,28 +61,34 @@ const weatherImgSrc = computed(() => {
     flex-direction: column;
     align-items: stretch;
 }
+
 .temperature {
     margin-top: 30px;
     display: flex;
     flex-direction: row;
     align-items: center;
 }
+
 .temperature-now {
     margin: 0px;
     padding-top: 10px;
     font-size: 70px;
 }
+
 .weather-text::first-letter {
     text-transform: uppercase;
 }
+
 .weather-img-src {
     width: 100px;
     height: 100px;
 }
+
 p img {
     width: 20px;
     height: 20px;
 }
+
 .weather-info {
     text-align: left;
 }
@@ -95,18 +100,22 @@ p img {
     justify-content: space-between;
     margin: 0;
 }
+
 .max-temp {
     text-align: left;
     padding: 10px 0px;
 }
+
 .min-temp {
     text-align: left;
     padding: 10px 0px;
 }
+
 .other {
     display: flex;
     align-items: flex-end;
 }
+
 .other img {
     margin-right: 5px;
 }
