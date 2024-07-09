@@ -1,5 +1,6 @@
 <script setup>
 import { computed } from 'vue'
+
 const props = defineProps({
     city: String,
     info: [String, Object],
@@ -7,7 +8,6 @@ const props = defineProps({
     error: String,
     weather: String,
 })
-const imageUrl = new URL(`./dir/weather-${props.weather.toLowerCase()}.png`, import.meta.url).href
 
 const showTemp = computed(() => {
     return Math.round(props.info.main.temp) + '°C'
@@ -30,12 +30,16 @@ const showPressure = computed(() => {
 const showWind = computed(() => {
     return props.info.wind.speed + ' m/sec'
 })
+
+const weatherImgSrc = computed(() => {
+    return `../src/img/weather-${props.weather.toLowerCase()}.png`
+})
 </script>
 <template>
     <div className="content-info" v-if="info !== null && error === '' && !isLoading">
         <div class="temperature">
             <p class="temperature-now">{{ showTemp }}</p>
-            <img class="weather-img-src" :src="imageUrl" alt="weather" />
+            <img class="weather-img-src" :src="weatherImgSrc" />
             <div class="weather-info">
                 <p class="weather-text">{{ weather }}</p>
                 <p>{{ showFeelsLike }}</p>
