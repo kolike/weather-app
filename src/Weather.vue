@@ -1,5 +1,5 @@
 <script setup>
-import WeatherInfo from './WeatherInfo.vue';
+import WeatherInfo from './WeatherInfo.vue'
 import { ref, computed } from 'vue'
 import axios from 'axios'
 
@@ -22,7 +22,7 @@ function getWeather() {
                 `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&units=metric&appid=fd0c066f40c0aa2abd192e5b2fbbd420`
             )
             .then((res) => {
-                info.value = res.data.main
+                info.value = res.data
                 weather.value = res.data.weather[0].main
             })
             .catch((res) => {
@@ -39,23 +39,20 @@ const cityName = computed(() => {
     return "'" + city.value + "'"
 })
 
+//
 </script>
 
 <template>
     <h1>Weather app</h1>
-    <div class="info-block" v-bind:style="{
-        backgroundImage: `url(/src/img/weather-img/${weather}.png)`,
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: '40px 75px',
-    }">
+    <div class="info-block" :class="weather">
         <div class="welcome-string">Find out the weather in {{ city === '' ? 'your' : cityName }} city</div>
-        <div>
-            <input type="text" v-model="city" placeholder="Enter the name of the city" />
-            <button @click="getWeather">Find out the weather</button>
+
+        <div class="search-panel">
+            <input @keyup.enter="getWeather" type="text" v-model="city" placeholder="Enter the name of the city" />
+            <button @click="getWeather">Search</button>
         </div>
-        <p v-show="error !== ''" className="error">{{ error }}</p>
-        <div v-show="error === '' && isLoading">Loading...</div>
+        <p v-show="error !== ''" class="error">{{ error }}</p>
+        <div class="loading" v-show="error === '' && isLoading">Loading...</div>
 
         <WeatherInfo :info="info" :isLoading="isLoading" :error="error" :weather="weather" />
     </div>
@@ -73,7 +70,7 @@ h1 {
 
 .info-block {
     text-shadow: 1px 1px 2px black;
-    height: 450px;
+    height: 350px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -87,26 +84,60 @@ h1 {
     text-align: center;
 }
 
+.search-panel {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.Clear {
+    background: linear-gradient(339deg, rgb(134, 179, 247) 0%, rgb(197, 242, 253) 100%);
+}
+
+.Clouds,
+.Rain,
+.Drizzle {
+    background: linear-gradient(339deg, rgb(248, 248, 248) 0%, rgb(206, 206, 206) 100%);
+    color: black;
+    text-shadow: none;
+}
+
+.Snow,
+.Mist {
+    background: linear-gradient(339deg, rgb(255, 255, 255) 0%, rgba(207, 206, 206, 0.521) 100%);
+    color: black;
+    text-shadow: none;
+}
+
+.Thunderstorm {
+    background: linear-gradient(339deg, rgb(202, 202, 202) 0%, rgba(75, 75, 75, 0.521) 100%);
+    color: black;
+    text-shadow: none;
+}
+
 @media (min-width: 1280px) {
     .info-block {
-        width: 50%;
+        width: 40%;
     }
 }
 
 @media (min-width: 720px) and (max-width: 1280px) {
     .info-block {
-        width: 70%;
+        width: 60%;
+        height: 110%;
     }
 }
 
 @media (max-width: 720px) {
     .info-block {
         width: 80%;
+        height: 120%;
     }
 }
 
 .welcome-string {
     margin-top: 15px;
+    height: 20px;
 }
 
 .info-block p {
@@ -116,19 +147,13 @@ h1 {
 }
 
 .info-block input {
-    margin-top: 30px;
-    background: transparent;
-    border: 0;
-    border-bottom: 2px solid #110813;
-    color: white;
-    font-size: 14px;
-    padding: 5px 8px;
+    width: 200px;
+    background: #fff url('/src/img/search.png') 10px/8% no-repeat;
+    font-family: 'Josefin Sans', sans-serif;
+    border: none;
+    border-radius: 15px;
+    padding: 10px 0px 10px 35px;
     outline: none;
-}
-
-input::placeholder {
-    color: rgb(255, 255, 255);
-    width: 125%;
 }
 
 .info-block input:focus {
@@ -136,15 +161,13 @@ input::placeholder {
 }
 
 .info-block button {
-    margin-top: 20px;
-    background: #e3bc4b;
-    border: 2px solid #b99935;
+    background: #4bb3e3;
+    padding: 7px 15px;
+    border: 2px solid #31a9e0;
     border-radius: 10px;
     color: white;
-    padding: 10px 15px;
     cursor: pointer;
     transition: transform 500ms ease;
-    margin-bottom: 10px;
 }
 
 .info-block button:hover {
@@ -152,10 +175,15 @@ input::placeholder {
 }
 
 .info-block button:active {
-    background: #f3d36f;
+    background: #8bd8fc;
+}
+
+.loading {
+    margin-top: 15px;
 }
 
 .error {
+    padding-top: 15px;
     color: red;
 }
 </style>
