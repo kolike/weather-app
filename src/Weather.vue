@@ -23,7 +23,7 @@ function getWeather() {
             )
             .then((res) => {
                 info.value = res.data
-                weather.value = res.data.weather[0].main
+                weather.value = res.data.weather[0].main.toLowerCase()
             })
             .catch((res) => {
                 error.value = res.response.data.message
@@ -90,26 +90,26 @@ h1 {
     margin-top: 15px;
 }
 
-.Clear {
+.clear {
     background: linear-gradient(339deg, rgb(134, 179, 247) 0%, rgb(197, 242, 253) 100%);
 }
 
-.Clouds,
-.Rain,
-.Drizzle {
+.clouds,
+.rain,
+.drizzle {
     background: linear-gradient(339deg, rgb(248, 248, 248) 0%, rgb(206, 206, 206) 100%);
     color: black;
     text-shadow: none;
 }
 
-.Snow,
-.Mist {
+.snow,
+.mist {
     background: linear-gradient(339deg, rgb(255, 255, 255) 0%, rgba(207, 206, 206, 0.521) 100%);
     color: black;
     text-shadow: none;
 }
 
-.Thunderstorm {
+.thunderstorm {
     background: linear-gradient(339deg, rgb(202, 202, 202) 0%, rgba(75, 75, 75, 0.521) 100%);
     color: black;
     text-shadow: none;
