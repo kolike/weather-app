@@ -31,7 +31,7 @@ const showWind = computed(() => {
 })
 
 const weatherImgSrc = computed(() => {
-    return `/src/img/${props.weather.toLowerCase()}.png`
+    return `/src/img/weather-${props.weather.toLowerCase()}.png`
 })
 </script>
 <template>
@@ -45,9 +45,9 @@ const weatherImgSrc = computed(() => {
             </div>
         </div>
         <div class="other-weather-info">
-            <p class="other"><img src="/src/img/wind.png" /> {{ showWind }}</p>
-            <p class="other"><img src="/src/img/humidity.png" /> {{ showHumidity }}</p>
-            <p class="other"><img src="/src/img/pressure.png" /> {{ showPressure }}</p>
+            <p class="other"><img src="/src/img/weather-wind" /> {{ showWind }}</p>
+            <p class="other"><img src="/src/img/weather-humidity.png.png" /> {{ showHumidity }}</p>
+            <p class="other"><img src="/src/img/weather-pressure.png.png" /> {{ showPressure }}</p>
         </div>
         <div class="max-temp">{{ showMaxTemp }}</div>
         <div class="min-temp">{{ showMinTemp }}</div>
