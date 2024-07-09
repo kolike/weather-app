@@ -31,10 +31,12 @@ const showWind = computed(() => {
     return props.info.wind.speed + ' m/sec'
 })
 
-const weatherImgSrc = computed(() => {
-    return `/src/assets/img/weather-${props.weather.toLowerCase()}.png`
+// const weatherImgSrc = computed(() => {
+//     return `/src/assets/img/weather-${props.weather.toLowerCase()}.png`
+// })
 
-})
+const weatherImgSrc = new URL(`/src/assets/img/weather-${props.weather.toLowerCase()}.png`, import.meta.url).href
+
 </script>
 <template>
     <div className="content-info" v-if="info !== null && error === '' && !isLoading">

@@ -131,14 +131,13 @@ const cityName = computed(() => {
 }
 
 .info-block p {
-    /* -webkit-text-stroke: 1px rgba(0, 0, 0, 0.281); */
     text-shadow: 1px 1px 2px black;
     margin-top: 0;
 }
 
 .info-block input {
     width: 200px;
-    background: #fff url('/src/img/search.png') 10px/8% no-repeat;
+    background: #fff url('/src/assets/img/search.png') 10px/8% no-repeat;
     font-family: 'Josefin Sans', sans-serif;
     border: none;
     border-radius: 15px;
