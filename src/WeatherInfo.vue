@@ -31,7 +31,7 @@ const showWind = computed(() => {
 })
 
 const weatherImgSrc = computed(() => {
-    return `../src/img/${props.weather}.png`
+    return `../src/img/${props.weather.toLowerCase()}.png`
 })
 </script>
 <template>
@@ -40,14 +40,14 @@ const weatherImgSrc = computed(() => {
             <p class="temperature-now">{{ showTemp }}</p>
             <img class="weather-img-src" :src="weatherImgSrc" />
             <div class="weather-info">
-                <p>{{ weather }}</p>
+                <p class="weather-text">{{ weather }}</p>
                 <p>{{ showFeelsLike }}</p>
             </div>
         </div>
         <div class="other-weather-info">
-            <p class="other"><img src="../src/img/Wind.png" /> {{ showWind }}</p>
-            <p class="other"><img src="../src/img/Humidity.png" /> {{ showHumidity }}</p>
-            <p class="other"><img src="../src/img/Pressure.png" /> {{ showPressure }}</p>
+            <p class="other"><img src="../src/img/wind.png" /> {{ showWind }}</p>
+            <p class="other"><img src="../src/img/humidity.png" /> {{ showHumidity }}</p>
+            <p class="other"><img src="../src/img/pressure.png" /> {{ showPressure }}</p>
         </div>
         <div class="max-temp">{{ showMaxTemp }}</div>
         <div class="min-temp">{{ showMinTemp }}</div>
@@ -70,7 +70,9 @@ const weatherImgSrc = computed(() => {
     padding-top: 10px;
     font-size: 70px;
 }
-
+.weather-text::first-letter {
+    text-transform: uppercase;
+}
 .weather-img-src {
     width: 100px;
     height: 100px;
