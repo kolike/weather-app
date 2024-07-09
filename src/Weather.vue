@@ -148,7 +148,7 @@ h1 {
 
 .info-block input {
     width: 200px;
-    background: #fff url('./img/search.png') 10px/8% no-repeat;
+    background: #fff url('/src/img/search.png') 10px/8% no-repeat;
     font-family: 'Josefin Sans', sans-serif;
     border: none;
     border-radius: 15px;
