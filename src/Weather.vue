@@ -37,12 +37,9 @@ function getWeather() {
 const cityName = computed(() => {
     return "'" + city.value + "'"
 })
-
-//
 </script>
 
 <template>
-
     <div class="info-block" :class="weather">
         <div class="welcome-string">Find out the weather in {{ city === '' ? 'your' : cityName }} city</div>
 
@@ -52,8 +49,7 @@ const cityName = computed(() => {
         </div>
         <p v-show="error !== ''" class="error">{{ error }}</p>
         <div class="loading" v-show="error === '' && isLoading">Loading...</div>
-
-        <WeatherInfo :info="info" :isLoading="isLoading" :error="error" :weather="weather" />
+        <WeatherInfo v-if="info !== '' && error === '' && !isLoading" :info="info" :weather="weather" />
     </div>
 </template>
 
@@ -64,13 +60,13 @@ const cityName = computed(() => {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-family: 'Josefin Sans', sans-serif;
+    font-family: 'LXGW WenKai TC', cursive;
     font-optical-sizing: auto;
     font-weight: 700;
     font-style: normal;
     border-radius: 50px;
     padding: 30px;
-    background: #110813;
+    background: linear-gradient(339deg, rgba(0, 90, 97, 0.568) 0%, rgba(0, 144, 155, 0.527) 100%);
     text-align: center;
 }
 
@@ -81,7 +77,7 @@ const cityName = computed(() => {
 }
 
 .clear {
-    background: linear-gradient(339deg, rgb(134, 179, 247) 0%, rgb(197, 242, 253) 100%);
+    background: linear-gradient(339deg, rgb(134, 179, 247) 0%, rgb(173, 239, 255) 100%);
 }
 
 .clouds,
@@ -124,6 +120,19 @@ const cityName = computed(() => {
         height: 120%;
     }
 }
+@media (max-width: 720px) and (orientation: landscape) {
+    .info-block {
+        scale: 60%;
+        margin-top: -80px;
+    }
+}
+
+@media (min-width: 720px) and (max-width: 1280px) and (orientation: landscape) {
+    .info-block {
+        scale: 65%;
+        margin-top: -80px;
+    }
+}
 
 .welcome-string {
     margin-top: 15px;
@@ -138,25 +147,22 @@ const cityName = computed(() => {
 .info-block input {
     width: 200px;
     background: #fff url('/src/assets/img/search.png') 10px/8% no-repeat;
-    font-family: 'Josefin Sans', sans-serif;
-    border: none;
+    font-family: 'LXGW WenKai TC', cursive;
+    margin: 5px;
     border-radius: 15px;
     padding: 10px 0px 10px 35px;
     outline: none;
 }
 
-.info-block input:focus {
-    border-bottom-color: #6e2d7d;
-}
-
 .info-block button {
     background: #4bb3e3;
-    padding: 7px 15px;
-    border: 2px solid #31a9e0;
-    border-radius: 10px;
+    padding: 10px 15px;
+    border: 2px solid #00000069;
+    border-radius: 15px;
     color: white;
     cursor: pointer;
     transition: transform 500ms ease;
+    margin: 5px;
 }
 
 .info-block button:hover {

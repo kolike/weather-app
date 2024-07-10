@@ -7,6 +7,7 @@ import weatherMist from '/src/assets/img/weather-mist.png'
 import weatherRain from '/src/assets/img/weather-rain.png'
 import weatherSnow from '/src/assets/img/weather-snow.png'
 import weatherThunderstorm from '/src/assets/img/weather-thunderstorm.png'
+import weatherDefault from '/src/assets/img/weather-default.png'
 
 const props = defineProps({
     city: String,
@@ -55,12 +56,13 @@ const weatherImgSrc = computed(() => {
             return weatherSnow
         case 'thunderstorm':
             return weatherThunderstorm
+        default:
+            return weatherDefault
     }
 })
-
 </script>
 <template>
-    <div className="content-info" v-if="info !== null && error === '' && !isLoading">
+    <div class="content-info">
         <div class="temperature">
             <p class="temperature-now">{{ showTemp }}</p>
             <img v-show="weatherImgSrc" class="weather-img-src" :src="weatherImgSrc" />
@@ -93,8 +95,8 @@ const weatherImgSrc = computed(() => {
 }
 
 .temperature-now {
+    padding-right: 10px;
     margin: 0px;
-    padding-top: 10px;
     font-size: 70px;
 }
 
@@ -103,6 +105,7 @@ const weatherImgSrc = computed(() => {
 }
 
 .weather-img-src {
+    padding: 0px 10px;
     width: 100px;
     height: 100px;
 }
@@ -113,6 +116,7 @@ p img {
 }
 
 .weather-info {
+    padding-left: 10px;
     text-align: left;
 }
 
